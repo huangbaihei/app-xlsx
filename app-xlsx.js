@@ -19,24 +19,28 @@ var tableContainer = []
 var applyNum = 0
 var fileNum = 0
 
-// 读取文件 
-// const sourcePath = '/Users/huangqier/Downloads/待处理表2.xlsx'
-console.log(chalk.blue(`正在读取xlsx源文件...\n`))
-const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(sourcePath));
-console.log(chalk.green(`成功读取xlsx源文件，共有${workSheetsFromBuffer.length}个sheet，开始进入拆分处理流程\n`))
+function start() {
+  // 读取文件 
+  // const sourcePath = '/Users/huangqier/Downloads/待处理表2.xlsx'
+  console.log(chalk.blue(`读取xlsx源文件...\n`))
+  const file = fs.readFileSync(sourcePath)
+  console.log(chalk.blue(`成功读取xlsx源文件，开始使用node-xlsx解析...\n`))
+  const workSheetsFromBuffer = xlsx.parse(file);
+  console.log(chalk.green(`成功解析xlsx源文件，共有${workSheetsFromBuffer.length}个sheet，开始进入拆分处理流程\n`))
 
-// 输出到控制台 
-// console.log(workSheetsFromBuffer); 
-// console.log(workSheetsFromBuffer[0].data);
+  // 输出到控制台 
+  // console.log(workSheetsFromBuffer); 
+  // console.log(workSheetsFromBuffer[0].data);
 
-// 只处理一个sheet
-// const table = workSheetsFromBuffer[0].data
-// handleTableSheet(table)
+  // 只处理一个sheet
+  // const table = workSheetsFromBuffer[0].data
+  // handleTableSheet(table)
 
-// 处理多个sheet
-for (let i = 0; i < workSheetsFromBuffer.length; i++) {
-  console.log(chalk.blue(`开始处理第${i + 1}个sheet...\n`))
-  handleTableSheet(workSheetsFromBuffer[i].data)
+  // 处理多个sheet
+  for (let i = 0; i < workSheetsFromBuffer.length; i++) {
+    console.log(chalk.blue(`开始处理第${i + 1}个sheet...\n`))
+    handleTableSheet(workSheetsFromBuffer[i].data)
+  }
 }
 
 function handleTableSheet (table) {
@@ -118,3 +122,4 @@ function handleTableSheet (table) {
   }
 }
 
+start()
